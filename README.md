@@ -65,7 +65,7 @@ Rscript 1_aoa_demo/demo.R
 ```
 
 This minimal implementation demonstrates:
-1. Train a XGB model based on a 4-fold spatial cross-validation, and compute trained dissimilarity index (TDI);
+1. Train a XGB model based on a 4-fold spatial cross-validation, and compute the trained dissimilarity index (TDI);
 2. Apply TDI to spatial predictor variables to determine AOA and DI;
 3. Visualise the spatial distribution of SM prediction, DI and AOA.
 
