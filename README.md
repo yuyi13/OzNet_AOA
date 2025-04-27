@@ -47,35 +47,70 @@ AOA delineates the area where the model can reliably apply relationships learned
 
 DI values range from 0 to $\infty$, where:
 
-- `DI = 0` represents identical characteristics between prediction and training locations
+- `DI = 0` represents identical characteristics between prediction and training locations;
 - `DI = Q3 + 1.5 * IQR` represents the outlier-removed threshold (i.e., the upper whisker of a box plot), below which the prediction locations are considered sufficiently similar with the training locations (i.e., AOA = 1).
 
 <p>
 <img src="figures/fig_aoa_vioplot.jpg" width="500">
 
-<em>An illustration of AOA and DI</em>
+<em>An illustration of DI and AOA</em>
 <p>
 
 ## Demo
 
-A demonstration script with sample data is provided to illustrate the functionality of AOA. To run the demonstration:
+A demonstration script with sample data is provided to illustrate the functionality of AOA. Make sure you are at the dir `OzNet_AOA`, then simply run:
 
 ```
-cd 1_aoa_demo
-Rscript demo.R
+Rscript 1_aoa_demo/demo.R
 ```
 
 This minimal implementation demonstrates:
-1. Read pre-trained ML models;
-2. Calculate the spatial distribution of DI and AOA;
-3. Visualise spatial SM prediction results with AOA metrics.
+1. Train a XGB model based on a 4-fold spatial cross-validation, and compute trained dissimilarity index (TDI);
+2. Apply TDI to spatial predictor variables to determine AOA and DI;
+3. Visualise the spatial distribution of SM prediction, DI and AOA.
 
-Example output showing the predicted SM and corresponding AOA is generated in the `demo/output/` directory:
+You should get an output like this:
+
+```
+DI:
+class       : SpatRaster 
+dimensions  : 1000, 1000, 1  (nrow, ncol, nlyr)
+resolution  : 0.001, 0.001  (x, y)
+extent      : 146, 147, -35.3, -34.3  (xmin, xmax, ymin, ymax)
+coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+source(s)   : memory
+name        :           DI 
+min value   :  0.001927745 
+max value   : 12.045685165 
+
+AOA:
+class       : SpatRaster 
+dimensions  : 1000, 1000, 1  (nrow, ncol, nlyr)
+resolution  : 0.001, 0.001  (x, y)
+extent      : 146, 147, -35.3, -34.3  (xmin, xmax, ymin, ymax)
+coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+source(s)   : memory
+name        : AOA 
+min value   :   0 
+max value   :   1 
+
+
+Predictor Weights:
+         dem         awc     clay       silt       sand   lst_100m albedo_100m
+1 0.08307054 0.009389059 0.042892 0.06679434 0.02102157 0.03341171    0.145537
+  ndvi_100m    et_100m       tavg       vpd       srad       rain
+1 0.1774103 0.08794802 0.02423263 0.2397983 0.03552223 0.03297235
+
+
+AOA Threshold: 0.3445035
+```
+
+This will also generate a visualisation `fig_aoa_demo.jpg` in the directory `figures/`:
 
 <p>
-<img src="figures/fig_aoa.jpg" width="750">
+<img src="figures/fig_aoa_demo.jpg" width="750">
 
-<em>The AOA of ML models for SM prediction</em>
+<em>The Spatial distribution of SM prediction, DI and AOA</em>
 <p>
 
 ## Experimental scripts
