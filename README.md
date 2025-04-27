@@ -47,10 +47,8 @@ AOA delineates the area where the model can reliably apply relationships learned
 
 DI values range from 0 to $\infty$, where:
 
-- DI = 0 indicates identical characteristics between prediction and training locations
-- DI = 1 indicates average-level dissimilarity with training locations
-
-Locations with DI values below the outlier-removed maximum (i.e., the upper whisker of a box plot) are considered sufficiently similar to training data (i.e., AOA = 1) for reliable predictions.
+- `DI = 0` represents identical characteristics between prediction and training locations
+- `DI = Q3 + 1.5 * IQR` represents the outlier-removed threshold (i.e., the upper whisker of a box plot), below which the prediction locations are considered sufficiently similar with the training locations (i.e., AOA = 1).
 
 <p>
 <img src="figures/fig_aoa_vioplot.jpg" width="500">
