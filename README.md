@@ -136,9 +136,7 @@ Due to computational requirements and data dependencies, these scripts are provi
 
 ## Figure scripts
 
-This directory provides the scripts to reproduce figures in the article. With the absence of input data, they are also not runnable and for reference purposes only though.
-
-The refactored scripts use one script per figure. Their numeric prefixes follow the main-text figure numbers in the article, so `4_*.R` corresponds to Fig. 4, `5_*.R` to Fig. 5, and so on.
+This directory provides the scripts to reproduce figures in the article. With the absence of input data, they are also not runnable and for reference purposes only though. The refactored scripts use one script per figure. Their numeric prefixes follow the main-text figure numbers in the article, so `4_*.R` corresponds to Fig. 4, `5_*.R` to Fig. 5, and so on.
 
 Note: Only figures with recoverable archive sources were produced. The current set covers Figs. 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, and 18.
 
@@ -164,7 +162,7 @@ doi = {10.1109/TGRS.2025.3565818}
 
 ## Conference paper
 
-Yu, Y., Malone, B. P. and Renzullo, L. J., 2024. Empirical upscaling of point-scale soil moisture measurements for spatial evaluation of model simulations and satellite retrievals, *2024 IEEE International Geoscience and Remote Sensing Symposium (IGARSS 2024), Athens, Greece, 7-12 July*. https://doi.org/10.1109/IGARSS53475.2024.10642763
+Yu, Y., Malone, B. P. and Renzullo, L. J., 2024. Empirical upscaling of point-scale soil moisture measurements for spatial evaluation of model simulations and satellite retrievals, *2024 IEEE International Geoscience and Remote Sensing Symposium (IGARSS 2024), Athens, Greece, 7–12 July*, 11496–11501. https://doi.org/10.1109/IGARSS53475.2024.10642763
 
 ## References
 
