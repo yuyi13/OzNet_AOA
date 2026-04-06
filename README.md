@@ -1,8 +1,13 @@
 # Assessing the area of applicability of machine learning models for spatial soil moisture prediction in southeastern Australia
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![R Programming](https://img.shields.io/badge/-R%20Programming-3776AB?style=flat&logo=R&logoColor=white)](https://www.r-project.org/)
+[![R Programming](https://img.shields.io/badge/-R%20Programming-276DC3?style=flat&logo=R&logoColor=white)](https://www.r-project.org/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15290777.svg)](https://doi.org/10.5281/zenodo.15290777)
+[![Google Scholar](https://img.shields.io/badge/Google%20Scholar-Profile-4285F4?style=flat&logo=googlescholar&logoColor=white)](https://scholar.google.com.au/citations?user=hXzMkAwAAAAJ&hl=en)
+[![ResearchGate](https://img.shields.io/badge/ResearchGate-Profile-00CCBB?style=flat&logo=researchgate&logoColor=white)](https://www.researchgate.net/profile/Yi-Yu-21)
+[![ORCID](https://img.shields.io/badge/ORCID-Profile-A6CE39?style=flat&logo=orcid&logoColor=white)](https://orcid.org/0000-0002-1140-2713)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/yuyi13/)
+[![Academic Profile](https://img.shields.io/badge/Academic%20Profile-University%20of%20Sydney-B7452B?style=flat)](https://profiles.sydney.edu.au/yi.yu1)
 
 ## Contents
 
@@ -18,7 +23,7 @@
 
 ## Overview
 
-This repository is structured to support reproducible research for "Spatial soil moisture prediction from in-situ data upscaled to Landsat footprint: Assessing area of applicability of machine learning models" (Yu et al., 2025). It presents the assessment of the area of applicability (AOA) of two machine learning (ML) models for spatial soil moisture (SM) prediction extrapolated from the OzNet Hydrological Monitoring Network in Yanco, Australia. The [demo](#demo) provides the functionality of AOA determination of the trained models. The [experimental](#experimental-scripts) and [figure](#figure-scripts) scripts are for reference purposes only.
+This repository is structured to support reproducible research for "Spatial soil moisture prediction from in situ data upscaled to Landsat footprint: Assessing area of applicability of machine learning models" (Yu et al., 2025). It presents the assessment of the area of applicability (AOA) of two machine learning (ML) models for spatial soil moisture (SM) prediction extrapolated from the OzNet Hydrological Monitoring Network in Yanco, Australia. The [demo](#demo) provides the functionality of AOA determination of the trained models. The [experimental](#experimental-scripts) and [figure](#figure-scripts) scripts are for reference purposes only.
 
 ## Background
 
@@ -144,7 +149,7 @@ This repository has a permalink registered at [Zenodo](https://doi.org/10.5281/z
 ```
 @article{YU2025_OzNet_AOA,
 author = {Yi Yu and Brendan P. Malone and Luigi J. Renzullo and Chad A. Burton and Siyuan Tian and Ross D. Searle and Thomas F. A. Bishop and Jeffrey P. Walker},
-title = {Spatial soil moisture prediction from in-situ data upscaled to Landsat footprint: Assessing area of applicability of machine learning models},
+title = {Spatial soil moisture prediction from in situ data upscaled to Landsat footprint: Assessing area of applicability of machine learning models},
 journal = {IEEE Transactions on Geoscience and Remote Sensing},
 volume = {63},
 pages = {1-19},
