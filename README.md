@@ -2,8 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![R Programming](https://img.shields.io/badge/-R%20Programming-3776AB?style=flat&logo=R&logoColor=white)](https://www.r-project.org/)
-[![DOI](https://zenodo.org/badge/DOI/xx.xxxx/zenodo.xxxxxxxx.svg)]()
-[![Twitter Follow](https://img.shields.io/twitter/follow/yuyi13_phd)](https://twitter.com/yuyi13_phd)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15290777.svg)](https://doi.org/10.5281/zenodo.15290777)
 
 ## Contents
 
@@ -58,7 +57,7 @@ DI values range from 0 to $\infty$, where:
 
 ## Demo
 
-A demonstration script with sample data is provided to illustrate the functionality of AOA. Make sure you are at the dir `OzNet_AOA`, then simply run:
+A demonstration script with sample data is provided to illustrate the functionality of AOA. Make sure you are under the directory `OzNet_AOA`, then simply run:
 
 ```
 Rscript 1_aoa_demo/demo.R
@@ -69,7 +68,7 @@ This minimal implementation demonstrates:
 2. Apply TDI to spatial predictor variables to determine AOA and DI;
 3. Visualise the spatial distribution of SM prediction, DI and AOA.
 
-You should get an output like this:
+You should expect an output like this:
 
 ```
 DI:
@@ -136,9 +135,9 @@ This directory provides the scripts to reproduce figures in the article. With th
 
 ## Permalink
 
-The experimental data to support reproducible research is publicly available from the CSIRO Data Access Portal (https://doi.org/xxxxx/xxxxx).
+The experimental data to support reproducible research is publicly available from the CSIRO Data Access Portal (https://doi.org/102.100.100/705658).
 
-This repository has a permalink registered at [Zenodo](https://doi.org/xx.xxxx/zenodo.xxxxxxx).
+This repository has a permalink registered at [Zenodo](https://doi.org/10.5281/zenodo.15290777).
 
 ## How to cite
 
@@ -147,10 +146,10 @@ This repository has a permalink registered at [Zenodo](https://doi.org/xx.xxxx/z
 author = {Yi Yu and Brendan P. Malone and Luigi J. Renzullo and Chad A. Burton and Siyuan Tian and Ross D. Searle and Thomas F. A. Bishop and Jeffrey P. Walker},
 title = {Spatial soil moisture prediction from in-situ data upscaled to Landsat footprint: Assessing area of applicability of machine learning models},
 journal = {IEEE Transactions on Geoscience and Remote Sensing},
-volume = {},
-pages = {},
+volume = {63},
+pages = {1-19},
 year = {2025},
-doi = {}
+doi = {10.1109/TGRS.2025.3565818}
 }
 ```
 
