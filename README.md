@@ -3,11 +3,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![R Programming](https://img.shields.io/badge/-R%20Programming-276DC3?style=flat&logo=R&logoColor=white)](https://www.r-project.org/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15290777.svg)](https://doi.org/10.5281/zenodo.15290777)
+[![University of Sydney](https://img.shields.io/badge/The%20University%20of%20Sydney-Profile-B7452B?style=flat)](https://profiles.sydney.edu.au/yi.yu1)
 [![Google Scholar](https://img.shields.io/badge/Google%20Scholar-Profile-4285F4?style=flat&logo=googlescholar&logoColor=white)](https://scholar.google.com.au/citations?user=hXzMkAwAAAAJ&hl=en)
 [![ResearchGate](https://img.shields.io/badge/ResearchGate-Profile-00CCBB?style=flat&logo=researchgate&logoColor=white)](https://www.researchgate.net/profile/Yi-Yu-21)
 [![ORCID](https://img.shields.io/badge/ORCID-Profile-A6CE39?style=flat&logo=orcid&logoColor=white)](https://orcid.org/0000-0002-1140-2713)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/yuyi13/)
-[![Academic Profile](https://img.shields.io/badge/Academic%20Profile-University%20of%20Sydney-B7452B?style=flat)](https://profiles.sydney.edu.au/yi.yu1)
 
 ## Contents
 
