@@ -138,6 +138,10 @@ Due to computational requirements and data dependencies, these scripts are provi
 
 This directory provides the scripts to reproduce figures in the article. With the absence of input data, they are also not runnable and for reference purposes only though.
 
+The refactored scripts use one script per figure. Their numeric prefixes follow the main-text figure numbers in the article, so `4_*.R` corresponds to Fig. 4, `5_*.R` to Fig. 5, and so on.
+
+Note: Only figures with recoverable archive sources were produced. The current set covers Figs. 4, 5, 6, 7, 10, 11, 12, 13, 14, 15, and 18.
+
 ## Permalink
 
 The experimental data to support reproducible research is publicly available from the CSIRO Data Access Portal (https://doi.org/102.100.100/705658).
