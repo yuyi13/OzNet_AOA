@@ -1,12 +1,12 @@
 #!/usr/bin/env Rscript
-# Script: 3_model_caret_cr_cluster.R
+# Script: 2.1_model_caret_cr_cluster.R
 # Objective: Fit random forest and XGBoost soil-moisture models with the archived cross-cluster validation setup.
 # Author: Yi Yu
 # Created: 2026-04-06
-# Last updated: 2026-04-06
+# Last updated: 2026-04-07
 # Inputs: Cleaned OzNet predictor tables and site cluster assignments.
 # Outputs: Caret model objects and CAST trainDI objects in /datasets/work/d61-af-soilmoisture/work/model_averaging/3_model_fitting/caret/.
-# Usage: Rscript 2_experimental_scripts/2_spatial_sm_prediction/3_model_caret_cr_cluster.R
+# Usage: Rscript 2_experimental_scripts/2.1_model_caret_cr_cluster.R
 # Dependencies: R packages caret, CAST, randomForest, xgboost, doParallel
 
 library(caret)
@@ -15,12 +15,12 @@ library(randomForest)
 library(xgboost)
 library(doParallel)
 
-site_info_file <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/0_code/oznet_studysites.csv"
+site_info_file    <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/0_code/oznet_studysites.csv"
 cleaned_data_root <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/2_cleaned_data"
-output_root <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/3_model_fitting/caret"
+output_root       <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/3_model_fitting/caret"
 
-study_start <- as.Date("2016-01-01")
-study_end <- as.Date("2019-12-31")
+study_start     <- as.Date("2016-01-01")
+study_end       <- as.Date("2019-12-31")
 predictor_names <- c(
   "dem", "awc", "clay", "silt", "sand",
   "lst_100m", "albedo_100m", "ndvi_100m", "et_100m",
@@ -36,10 +36,10 @@ dir.create(output_root, recursive = TRUE, showWarnings = FALSE)
 load_site_training_data <- function(site_index, site_info, data_root) {
   site_name <- site_info$sitename[site_index]
   site_file <- file.path(data_root, paste0("OzNet_", site_name, "_cleaned_data.csv"))
-  site_df <- read.csv(site_file)
+  site_df   <- read.csv(site_file)
 
-  in_period <- as.Date(site_df$time) >= study_start & as.Date(site_df$time) <= study_end
-  site_df <- site_df[in_period, , drop = FALSE]
+  in_period       <- as.Date(site_df$time) >= study_start & as.Date(site_df$time) <= study_end
+  site_df         <- site_df[in_period, , drop = FALSE]
   site_df$cluster <- site_info$cluster[site_index]
 
   site_df
@@ -48,13 +48,13 @@ load_site_training_data <- function(site_index, site_info, data_root) {
 fit_and_save_model <- function(caret_method, model_label, predictors_train, response_train, cv_index) {
   set.seed(13)
   fitted_model <- caret::train(
-    x = predictors_train,
-    y = response_train,
-    method = caret_method,
+    x          = predictors_train,
+    y          = response_train,
+    method     = caret_method,
     importance = TRUE,
-    trControl = caret::trainControl(
-      method = "cv",
-      index = cv_index,
+    trControl  = caret::trainControl(
+      method        = "cv",
+      index         = cv_index,
       allowParallel = TRUE
     )
   )
@@ -72,7 +72,7 @@ fit_and_save_model <- function(caret_method, model_label, predictors_train, resp
   )
 }
 
-site_info <- read.csv(site_info_file)
+site_info       <- read.csv(site_info_file)
 training_tables <- vector("list", nrow(site_info))
 
 for (site_index in seq_len(nrow(site_info))) {
@@ -88,7 +88,7 @@ if (length(ndvi_outliers) > 0) {
 
 whole_df_train <- stats::na.omit(whole_df_train)
 
-cluster_ids <- sort(unique(stats::na.omit(whole_df_train$cluster)))
+cluster_ids         <- sort(unique(stats::na.omit(whole_df_train$cluster)))
 spatial_cluster_idx <- lapply(
   cluster_ids,
   function(cluster_id) {
@@ -96,7 +96,7 @@ spatial_cluster_idx <- lapply(
   }
 )
 
-response_train <- whole_df_train[["insitu_sm"]]
+response_train   <- whole_df_train[["insitu_sm"]]
 predictors_train <- whole_df_train[, predictor_names, drop = FALSE]
 
 fit_and_save_model("rf", "rf", predictors_train, response_train, spatial_cluster_idx)

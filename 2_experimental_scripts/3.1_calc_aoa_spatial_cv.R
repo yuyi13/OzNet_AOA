@@ -1,12 +1,12 @@
 #!/usr/bin/env Rscript
-# Script: 5_calc_aoa_spatial_cv.R
+# Script: 3.1_calc_aoa_spatial_cv.R
 # Objective: Calculate daily AOA and dissimilarity rasters from the spatial cross-validation models.
 # Author: Yi Yu
 # Created: 2026-04-06
-# Last updated: 2026-04-06
+# Last updated: 2026-04-07
 # Inputs: Cross-validation trainDI objects plus daily predictor rasters.
 # Outputs: Daily NetCDF files in /datasets/work/d61-af-soilmoisture/work/model_averaging/5_sm_aoa/<model>/spatial_cv/.
-# Usage: Rscript 2_experimental_scripts/3_aoa_assessment/5_calc_aoa_spatial_cv.R <rf|xgb>
+# Usage: Rscript 2_experimental_scripts/3.1_calc_aoa_spatial_cv.R <rf|xgb>
 # Dependencies: R packages CAST, caret, ncdf4, terra, foreach, doParallel
 
 library(CAST)
@@ -21,20 +21,20 @@ if (length(args) != 1 || !args[[1]] %in% c("rf", "xgb")) {
   stop("Usage: Rscript 5_calc_aoa_spatial_cv.R <rf|xgb>")
 }
 
-model_name <- args[[1]]
-static_root <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/0_static_layers"
-fusion_root <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/1_downscaled_data"
-et_root <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/CMRSET_ET"
+model_name   <- args[[1]]
+static_root  <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/0_static_layers"
+fusion_root  <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/1_downscaled_data"
+et_root      <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/CMRSET_ET"
 climate_root <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/ANUClim_yanco/bilinear"
-model_root <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/3_model_fitting/caret"
-output_root <- file.path(
+model_root   <- "/datasets/work/d61-af-soilmoisture/work/model_averaging/3_model_fitting/caret"
+output_root  <- file.path(
   "/datasets/work/d61-af-soilmoisture/work/model_averaging/5_sm_aoa",
   model_name,
   "spatial_cv"
 )
 
 dates_of_interest <- seq(as.Date("2016-01-01"), as.Date("2021-12-31"), by = "day")
-predictor_names <- c(
+predictor_names   <- c(
   "dem", "awc", "clay", "silt", "sand",
   "lst_100m", "albedo_100m", "ndvi_100m", "et_100m",
   "tavg", "vpd", "srad", "rain"
@@ -71,20 +71,20 @@ train_di <- readRDS(file.path(model_root, paste0(model_name, "_tdi_caret_4fold_s
 
 foreach::foreach(
   date_index = seq_along(dates_of_interest),
-  .packages = c("CAST", "caret", "ncdf4", "terra")
+  .packages  = c("CAST", "caret", "ncdf4", "terra")
 ) %dopar% {
   date_value <- dates_of_interest[date_index]
   message("Processing date: ", format(date_value, "%Y%m%d"))
 
   predictor_stack <- build_predictor_stack(date_value)
-  sm_aoa <- CAST::aoa(newdata = predictor_stack, trainDI = train_di)
-  sm_aoa_stack <- c(sm_aoa$DI, sm_aoa$AOA)
+  sm_aoa          <- CAST::aoa(newdata = predictor_stack, trainDI = train_di)
+  sm_aoa_stack    <- c(sm_aoa$DI, sm_aoa$AOA)
 
   writeCDF(
     sm_aoa_stack,
-    filename = file.path(output_root, paste0("sm_aoa_", model_name, "_", format(date_value, "%Y%m%d"), ".nc")),
-    varname = "aoa_metrics",
-    longname = "Dissimilarity index and Area of Applicability",
+    filename  = file.path(output_root, paste0("sm_aoa_", model_name, "_", format(date_value, "%Y%m%d"), ".nc")),
+    varname   = "aoa_metrics",
+    longname  = "Dissimilarity index and Area of Applicability",
     overwrite = TRUE
   )
 }
