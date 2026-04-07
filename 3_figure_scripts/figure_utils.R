@@ -3,14 +3,14 @@
 # Objective: Provide shared helpers for the refactored OzNet_AOA figure scripts.
 # Author: Yi Yu; refactored by OpenAI Codex
 # Created: 2026-04-06
-# Last updated: 2026-04-06
+# Last updated: 2026-04-07
 # Inputs: Repository paths plus optional OZNET_AOA_DATA_ROOT and OZNET_GRAPHICS_HELPER environment variables.
 # Outputs: Helper functions for figure paths, palettes, summary labels, and common plotting setup.
 # Usage: source("3_figure_scripts/figure_utils.R")
 # Dependencies: base R
 
 get_script_path <- function() {
-  args <- commandArgs(trailingOnly = FALSE)
+  args     <- commandArgs(trailingOnly = FALSE)
   file_arg <- grep("^--file=", args, value = TRUE)
 
   if (length(file_arg) == 0) {
@@ -40,7 +40,7 @@ get_data_root <- function() {
 }
 
 read_oznet_sites <- function() {
-  repo_path <- file.path(get_repo_root(), "0_ancillary", "OzNet_study_sites.csv")
+  repo_path    <- file.path(get_repo_root(), "0_ancillary", "OzNet_study_sites.csv")
   archive_path <- file.path(get_data_root(), "0_code", "oznet_studysites.csv")
 
   if (file.exists(repo_path)) {
@@ -69,7 +69,7 @@ open_png <- function(filename, width, height, pointsize = 12) {
 
 normalise_min_max <- function(x) {
   value_range <- range(x, na.rm = TRUE)
-  span <- diff(value_range)
+  span        <- diff(value_range)
 
   if (!is.finite(span) || span == 0) {
     return(rep(NA_real_, length(x)))

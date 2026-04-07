@@ -3,7 +3,7 @@
 # Objective: Reproduce Fig. 5 showing MODIS versus downscaled predictor examples for April 2, 2017.
 # Author: Yi Yu; refactored by OpenAI Codex
 # Created: 2026-04-06
-# Last updated: 2026-04-06
+# Last updated: 2026-04-07
 # Inputs: MODIS and downscaled albedo, NDVI, and LST rasters under OZNET_AOA_DATA_ROOT.
 # Outputs: 3_figure_scripts/generated/fig_05_downscaled_predictor_examples.png
 # Usage: Rscript 3_figure_scripts/5_downscaled_predictor_examples.R
@@ -31,8 +31,8 @@ plot_predictor <- function(raster_layer, limits, palette_fn, panel_tag, zoom_box
   }
 }
 
-data_root <- get_data_root()
-doi <- as.Date("2017-04-02")
+data_root   <- get_data_root()
+doi         <- as.Date("2017-04-02")
 zoom_extent <- extent(146.25, 146.35, -35.02, -34.92)
 
 modis_albedo <- raster(
@@ -85,8 +85,8 @@ downscaled_lst <- raster(
 )
 
 albedo_limits <- c(0, 0.3)
-ndvi_limits <- c(0, 1)
-lst_limits <- c(290, 310)
+ndvi_limits   <- c(0, 1)
+lst_limits    <- c(290, 310)
 
 open_png("fig_05_downscaled_predictor_examples.png", width = 1800, height = 2400, pointsize = 18)
 layout(matrix(seq_len(12), nrow = 4, byrow = TRUE))

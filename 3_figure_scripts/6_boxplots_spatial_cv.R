@@ -3,7 +3,7 @@
 # Objective: Reproduce Fig. 6 showing site-level bias, ubRMSE, and R for fourfold spatial cross-validation.
 # Author: Yi Yu; refactored by OpenAI Codex
 # Created: 2026-04-06
-# Last updated: 2026-04-06
+# Last updated: 2026-04-07
 # Inputs: OzNet site metadata plus RF and XGB validation CSV files under OZNET_AOA_DATA_ROOT.
 # Outputs: 3_figure_scripts/generated/fig_06_boxplots_spatial_cv.png
 # Usage: Rscript 3_figure_scripts/6_boxplots_spatial_cv.R
@@ -38,11 +38,11 @@ collect_iteration_metrics <- function(model_name, site_info, validation_dir) {
       paste0(model_name, "_validation_iteration_", iteration_id, ".csv")
     )
     validation_df <- read.csv(validation_path)
-    target_idx <- which(site_info$iteration == iteration_id)
+    target_idx    <- which(site_info$iteration == iteration_id)
 
     for (row_idx in target_idx) {
-      site_name <- site_info$sitename[row_idx]
-      site_metrics <- compute_site_metrics(validation_df[validation_df$sitename == site_name, ])
+      site_name                                     <- site_info$sitename[row_idx]
+      site_metrics                                  <- compute_site_metrics(validation_df[validation_df$sitename == site_name, ])
       metrics_df[row_idx, c("bias", "ubrmse", "r")] <- site_metrics
     }
   }
@@ -73,15 +73,15 @@ plot_metric_boxplot <- function(metric_df, y_limits, y_label, panel_tag, add_zer
   )
 }
 
-oznet_sites <- read_oznet_sites()
+oznet_sites    <- read_oznet_sites()
 validation_dir <- file.path(get_data_root(), "3_model_fitting", "validation")
 
-rf_metrics <- collect_iteration_metrics("rf", oznet_sites, validation_dir)
+rf_metrics  <- collect_iteration_metrics("rf", oznet_sites, validation_dir)
 xgb_metrics <- collect_iteration_metrics("xgb", oznet_sites, validation_dir)
 
-bias_df <- data.frame(RF = rf_metrics$bias, XGB = xgb_metrics$bias)
+bias_df   <- data.frame(RF = rf_metrics$bias, XGB = xgb_metrics$bias)
 ubrmse_df <- data.frame(RF = rf_metrics$ubrmse, XGB = xgb_metrics$ubrmse)
-cor_df <- data.frame(RF = rf_metrics$r, XGB = xgb_metrics$r)
+cor_df    <- data.frame(RF = rf_metrics$r, XGB = xgb_metrics$r)
 
 open_png("fig_06_boxplots_spatial_cv.png", width = 1650, height = 600, pointsize = 18)
 layout(matrix(seq_len(3), nrow = 1))

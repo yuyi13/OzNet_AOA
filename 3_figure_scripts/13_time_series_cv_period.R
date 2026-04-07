@@ -3,7 +3,7 @@
 # Objective: Reproduce Fig. 13 showing CV-period time series for RF and XGB against CosmOz and OzFlux.
 # Author: Yi Yu; refactored by OpenAI Codex
 # Created: 2026-04-06
-# Last updated: 2026-04-06
+# Last updated: 2026-04-07
 # Inputs: Extracted time-series CSVs plus trained RF/XGB caret models under OZNET_AOA_DATA_ROOT.
 # Outputs: 3_figure_scripts/generated/fig_13_time_series_cv_period.png
 # Usage: Rscript 3_figure_scripts/13_time_series_cv_period.R
@@ -23,7 +23,7 @@ predict_wetness <- function(model_object, predictors_df) {
 
 load_network_series <- function(data_root, network_name) {
   csv_path <- file.path(data_root, "2_extracted_timeseries", paste0(network_name, "_Yanco_extracted_data.csv"))
-  sm_df <- read.csv(csv_path)
+  sm_df    <- read.csv(csv_path)
 
   if (network_name == "OzFlux") {
     sm_df$insitu_sm <- normalise_min_max(sm_df$insitu_sm)
@@ -33,7 +33,7 @@ load_network_series <- function(data_root, network_name) {
 }
 
 prepare_predictions <- function(sm_df, rf_model_cv, rf_model_cc, xgb_model_cv, xgb_model_cc) {
-  complete_idx <- which(stats::complete.cases(sm_df))
+  complete_idx  <- which(stats::complete.cases(sm_df))
   predictor_idx <- c(5:9, 13:20)
 
   sm_df$rf_cv <- sm_df$rf_cc <- sm_df$xgb_cv <- sm_df$xgb_cc <- NA_real_
@@ -41,8 +41,8 @@ prepare_predictions <- function(sm_df, rf_model_cv, rf_model_cc, xgb_model_cv, x
   if (length(complete_idx) > 0) {
     predictors_df <- sm_df[complete_idx, predictor_idx]
 
-    sm_df$rf_cv[complete_idx] <- predict_wetness(rf_model_cv, predictors_df)
-    sm_df$rf_cc[complete_idx] <- predict_wetness(rf_model_cc, predictors_df)
+    sm_df$rf_cv[complete_idx]  <- predict_wetness(rf_model_cv, predictors_df)
+    sm_df$rf_cc[complete_idx]  <- predict_wetness(rf_model_cc, predictors_df)
     sm_df$xgb_cv[complete_idx] <- predict_wetness(xgb_model_cv, predictors_df)
     sm_df$xgb_cc[complete_idx] <- predict_wetness(xgb_model_cc, predictors_df)
   }
@@ -51,8 +51,8 @@ prepare_predictions <- function(sm_df, rf_model_cv, rf_model_cc, xgb_model_cv, x
 }
 
 plot_time_series_panel <- function(sm_df, date_range, network_label, model_label, cv_col, cc_col, colors, panel_tag) {
-  selected_idx <- which(as.Date(sm_df$time) %in% date_range)
-  rain_series <- sm_df$rain[selected_idx]
+  selected_idx                  <- which(as.Date(sm_df$time) %in% date_range)
+  rain_series                   <- sm_df$rain[selected_idx]
   rain_series[rain_series == 0] <- NA
 
   plot(
@@ -107,19 +107,19 @@ plot_time_series_panel <- function(sm_df, date_range, network_label, model_label
       paste0("CV: Bias = ", round(cv_metrics[1], 2), ", ubRMSE = ", round(cv_metrics[2], 2), ", R = ", round(cv_metrics[3], 2)),
       paste0("CC: Bias = ", round(cc_metrics[1], 2), ", ubRMSE = ", round(cc_metrics[2], 2), ", R = ", round(cc_metrics[3], 2))
     ),
-    col = colors,
-    lty = 1,
-    bty = "n",
-    cex = 0.85
+    col    = colors,
+    lty    = 1,
+    bty    = "n",
+    cex    = 0.85
   )
 }
 
-data_root <- get_data_root()
-rf_model_cv <- readRDS(file.path(data_root, "3_model_fitting", "caret", "rf_model_caret_4fold_spatial_cv.rds"))
-rf_model_cc <- readRDS(file.path(data_root, "3_model_fitting", "caret", "rf_model_caret_cross_cluster.rds"))
+data_root    <- get_data_root()
+rf_model_cv  <- readRDS(file.path(data_root, "3_model_fitting", "caret", "rf_model_caret_4fold_spatial_cv.rds"))
+rf_model_cc  <- readRDS(file.path(data_root, "3_model_fitting", "caret", "rf_model_caret_cross_cluster.rds"))
 xgb_model_cv <- readRDS(file.path(data_root, "3_model_fitting", "caret", "xgb_model_caret_4fold_spatial_cv.rds"))
 xgb_model_cc <- readRDS(file.path(data_root, "3_model_fitting", "caret", "xgb_model_caret_cross_cluster.rds"))
-cv_dates <- seq(as.Date("2016-01-01"), as.Date("2019-12-31"), by = "day")
+cv_dates     <- seq(as.Date("2016-01-01"), as.Date("2019-12-31"), by = "day")
 
 cosmoz_df <- prepare_predictions(
   load_network_series(data_root, "CosmOz"),

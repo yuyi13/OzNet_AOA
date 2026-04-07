@@ -3,7 +3,7 @@
 # Objective: Reproduce Fig. 12 showing HDAS comparisons against RF and XGB predictions on four campaign dates.
 # Author: Yi Yu; refactored by OpenAI Codex
 # Created: 2026-04-06
-# Last updated: 2026-04-06
+# Last updated: 2026-04-07
 # Inputs: HDAS raster stack, campaign dates, and upscaled RF/XGB rasters under OZNET_AOA_DATA_ROOT.
 # Outputs: 3_figure_scripts/generated/fig_12_hdas_comparison.png
 # Usage: Rscript 3_figure_scripts/12_hdas_comparison.R
@@ -78,21 +78,21 @@ plot_scatter_panel <- function(reference_values, cv_values, cc_values, colors, p
       paste0("CC: ", format_fit(cc_fit)),
       paste0("N = ", nrow(comparison_df))
     ),
-    col = c(colors, NA),
-    pch = c(15, 16, NA),
-    lty = c(NA, NA, NA),
-    bty = "n"
+    col    = c(colors, NA),
+    pch    = c(15, 16, NA),
+    lty    = c(NA, NA, NA),
+    bty    = "n"
   )
 }
 
-data_root <- get_data_root()
-hdas_stack <- stack(file.path(data_root, "HDAS_Yanco", "hdas_spatial_stack.nc"))
-metrics_df <- read.csv(file.path(data_root, "7_evaluations", "hdas_metrics.csv"))
+data_root    <- get_data_root()
+hdas_stack   <- stack(file.path(data_root, "HDAS_Yanco", "hdas_spatial_stack.nc"))
+metrics_df   <- read.csv(file.path(data_root, "7_evaluations", "hdas_metrics.csv"))
 selected_idx <- c(2, 3, 10, 11)
-panel_tags <- c(letters, paste0("a", letters[1:10]))
+panel_tags   <- c(letters, paste0("a", letters[1:10]))
 
-rf_cv_dir <- file.path(data_root, "4_upscaled_sm", "study_area", "global", "rf")
-rf_cc_dir <- file.path(data_root, "4_upscaled_sm", "study_area", "clusterA", "rf")
+rf_cv_dir  <- file.path(data_root, "4_upscaled_sm", "study_area", "global", "rf")
+rf_cc_dir  <- file.path(data_root, "4_upscaled_sm", "study_area", "clusterA", "rf")
 xgb_cv_dir <- file.path(data_root, "4_upscaled_sm", "100m", "global", "xgb")
 xgb_cc_dir <- file.path(data_root, "4_upscaled_sm", "100m", "clusterA", "xgb")
 
@@ -101,8 +101,8 @@ layout(matrix(seq_len(28), nrow = 4, byrow = TRUE))
 par(mar = c(1.8, 1.8, 1.5, 1.2))
 
 for (row_idx in seq_along(selected_idx)) {
-  metric_idx <- selected_idx[row_idx]
-  date_value <- as.Date(metrics_df$date[metric_idx], format = "%Y-%m-%d")
+  metric_idx  <- selected_idx[row_idx]
+  date_value  <- as.Date(metrics_df$date[metric_idx], format = "%Y-%m-%d")
   hdas_raster <- hdas_stack[[metric_idx]]
   hdas_extent <- extent(hdas_raster)
 

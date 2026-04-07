@@ -3,7 +3,7 @@
 # Objective: Reproduce Fig. 4 showing binned density scatterplots for downscaled predictor performance.
 # Author: Yi Yu; refactored by OpenAI Codex
 # Created: 2026-04-06
-# Last updated: 2026-04-06
+# Last updated: 2026-04-07
 # Inputs: OzNet cleaned site data under OZNET_AOA_DATA_ROOT plus albedo fusion training dates.
 # Outputs: 3_figure_scripts/generated/fig_04_downscaled_predictor_performance.png
 # Usage: Rscript 3_figure_scripts/4_downscaled_predictor_performance.R
@@ -14,7 +14,7 @@ script_file <- sub("^--file=", "", script_args[grep("^--file=", script_args)][1]
 source(file.path(dirname(normalizePath(script_file)), "figure_utils.R"))
 
 get_file_sizes <- function(paths) {
-  sizes <- rep(NA_real_, length(paths))
+  sizes        <- rep(NA_real_, length(paths))
   existing_idx <- which(file.exists(paths))
 
   if (length(existing_idx) > 0) {
@@ -25,9 +25,9 @@ get_file_sizes <- function(paths) {
 }
 
 get_albedo_training_dates <- function(data_root) {
-  doi <- seq(as.Date("2015-01-01"), as.Date("2022-12-31"), by = 16)
+  doi         <- seq(as.Date("2015-01-01"), as.Date("2022-12-31"), by = 16)
   landsat_dir <- file.path(data_root, "datafusion_yanco", "0_landsat_albedo_masked")
-  modis_dir <- file.path(data_root, "datafusion_yanco", "0_modis_albedo_masked")
+  modis_dir   <- file.path(data_root, "datafusion_yanco", "0_modis_albedo_masked")
 
   landsat_files <- file.path(
     landsat_dir,
@@ -48,14 +48,14 @@ build_density_data <- function(x_values, y_values) {
     y_values,
     colramp = grDevices::colorRampPalette(c("black", "white"))
   )
-  density_rank <- col2rgb(density_cols)[1, ] + 1L
+  density_rank  <- col2rgb(density_cols)[1, ] + 1L
   panel_palette <- grDevices::colorRampPalette(c("#fff7bc", "#fd8d3c", "#bd0026"))(256)
 
   data.frame(
-    x   = x_values,
-    y   = y_values,
+    x    = x_values,
+    y    = y_values,
     dens = density_rank,
-    col = panel_palette[pmin(density_rank, 256)]
+    col  = panel_palette[pmin(density_rank, 256)]
   )
 }
 
@@ -88,7 +88,7 @@ plot_density_panel <- function(x_values, y_values, xlim, ylim, xlab, ylab, panel
       paste0("ubRMSE = ", round(stats::sd(y_values - x_values), 2)),
       paste0("R = ", round(stats::cor(y_values, x_values), 2))
     ),
-    bty = "n"
+    bty    = "n"
   )
 }
 
@@ -113,9 +113,9 @@ plot_density_scale <- function(x_values, y_values) {
   text(2.8, (1:10) + 0.5, signif(color_key$density, 2), adj = 0)
 }
 
-data_root <- get_data_root()
-oznet_sites <- read_oznet_sites()
-study_dates <- seq(as.Date("2016-01-01"), as.Date("2019-12-31"), by = "day")
+data_root      <- get_data_root()
+oznet_sites    <- read_oznet_sites()
+study_dates    <- seq(as.Date("2016-01-01"), as.Date("2019-12-31"), by = "day")
 training_dates <- get_albedo_training_dates(data_root)
 
 site_tables <- vector("list", nrow(oznet_sites))
@@ -144,12 +144,12 @@ layout(matrix(seq_len(6), nrow = 1), widths = c(5, 2, 5, 2, 5, 2))
 
 par(mar = c(4, 4, 2, 1))
 plot_density_panel(
-  x_values = whole_df$albedo_500m,
-  y_values = whole_df$albedo_100m,
-  xlim     = c(0, 0.4),
-  ylim     = c(0, 0.4),
-  xlab     = "MODIS albedo",
-  ylab     = "Downscaled albedo",
+  x_values  = whole_df$albedo_500m,
+  y_values  = whole_df$albedo_100m,
+  xlim      = c(0, 0.4),
+  ylim      = c(0, 0.4),
+  xlab      = "MODIS albedo",
+  ylab      = "Downscaled albedo",
   panel_tag = "a"
 )
 
@@ -158,12 +158,12 @@ plot_density_scale(whole_df$albedo_500m, whole_df$albedo_100m)
 
 par(mar = c(4, 4, 2, 1))
 plot_density_panel(
-  x_values = whole_df$ndvi_500m,
-  y_values = whole_df$ndvi_100m,
-  xlim     = c(0, 1),
-  ylim     = c(0, 1),
-  xlab     = "MODIS NDVI",
-  ylab     = "Downscaled NDVI",
+  x_values  = whole_df$ndvi_500m,
+  y_values  = whole_df$ndvi_100m,
+  xlim      = c(0, 1),
+  ylim      = c(0, 1),
+  xlab      = "MODIS NDVI",
+  ylab      = "Downscaled NDVI",
   panel_tag = "b"
 )
 
@@ -172,12 +172,12 @@ plot_density_scale(whole_df$ndvi_500m, whole_df$ndvi_100m)
 
 par(mar = c(4, 4, 2, 1))
 plot_density_panel(
-  x_values = whole_df$lst_1km,
-  y_values = whole_df$lst_100m,
-  xlim     = c(270, 330),
-  ylim     = c(270, 330),
-  xlab     = "MODIS LST (K)",
-  ylab     = "Downscaled LST (K)",
+  x_values  = whole_df$lst_1km,
+  y_values  = whole_df$lst_100m,
+  xlim      = c(270, 330),
+  ylim      = c(270, 330),
+  xlab      = "MODIS LST (K)",
+  ylab      = "Downscaled LST (K)",
   panel_tag = "c"
 )
 

@@ -3,7 +3,7 @@
 # Objective: Reproduce Fig. 10 showing study-area median DI and AOA maps for RF and XGB under CV and CC.
 # Author: Yi Yu; refactored by OpenAI Codex
 # Created: 2026-04-06
-# Last updated: 2026-04-06
+# Last updated: 2026-04-07
 # Inputs: Median DI rasters, AOA rasters, and threshold RDS files under OZNET_AOA_DATA_ROOT.
 # Outputs: 3_figure_scripts/generated/fig_10_di_and_aoa_maps.png
 # Usage: Rscript 3_figure_scripts/10_di_and_aoa_maps.R
@@ -48,7 +48,7 @@ plot_aoa_panel <- function(aoa_raster, panel_tag) {
   rect(146.25, -35.02, 146.35, -34.92, border = "black", lwd = 2)
 
   aoa_values <- getValues(aoa_raster)
-  aoa_share <- sum(aoa_values == 1, na.rm = TRUE) / sum(!is.na(aoa_values)) * 100
+  aoa_share  <- sum(aoa_values == 1, na.rm = TRUE) / sum(!is.na(aoa_values)) * 100
 
   legend(
     "topleft",
@@ -58,13 +58,13 @@ plot_aoa_panel <- function(aoa_raster, panel_tag) {
 }
 
 data_root <- get_data_root()
-aoa_dir <- file.path(data_root, "6_aoa_metrics", "study_area")
+aoa_dir   <- file.path(data_root, "6_aoa_metrics", "study_area")
 caret_dir <- file.path(data_root, "3_model_fitting", "caret")
 
 config <- data.frame(
-  model        = c("rf", "rf", "xgb", "xgb"),
-  caret_suffix = c("4fold_spatial_cv", "cross_cluster", "4fold_spatial_cv", "cross_cluster"),
-  aoa_suffix   = c("spatial_cv", "cr_cluster", "spatial_cv", "cr_cluster"),
+  model            = c("rf", "rf", "xgb", "xgb"),
+  caret_suffix     = c("4fold_spatial_cv", "cross_cluster", "4fold_spatial_cv", "cross_cluster"),
+  aoa_suffix       = c("spatial_cv", "cr_cluster", "spatial_cv", "cr_cluster"),
   stringsAsFactors = FALSE
 )
 

@@ -3,7 +3,7 @@
 # Objective: Reproduce Fig. 18 showing violin plots of static covariates within and outside the AOA.
 # Author: Yi Yu; refactored by OpenAI Codex
 # Created: 2026-04-06
-# Last updated: 2026-04-06
+# Last updated: 2026-04-07
 # Inputs: Static raster layers, irrigation raster, and the RF study-area AOA raster.
 # Outputs: 3_figure_scripts/generated/fig_18_static_covariates_in_out_aoa.png
 # Usage: Rscript 3_figure_scripts/18_static_covariates_in_out_aoa.R
@@ -44,23 +44,23 @@ plot_violin_panel <- function(value_list, fill_color, panel_tag, sample_size) {
   text(seq_along(value_list), -0.08, labels = format_medians(medians), col = "red", cex = 0.9)
 }
 
-data_root <- get_data_root()
-static_dir <- file.path(data_root, "0_static_layers", "100m")
+data_root       <- get_data_root()
+static_dir      <- file.path(data_root, "0_static_layers", "100m")
 irrigation_path <- "/datasets/work/d61-af-soilmoisture/work/agri_drought/irrigation_area/gmia_v5_aei_pct.asc"
-aoa_path <- file.path(data_root, "6_aoa_metrics", "study_area", "aoa_major_rf_spatial_cv.tif")
+aoa_path        <- file.path(data_root, "6_aoa_metrics", "study_area", "aoa_major_rf_spatial_cv.tif")
 
-dem <- raster(file.path(static_dir, "dem_100m.tif"))
-awc <- raster(file.path(static_dir, "awc_100m.tif"))
+dem  <- raster(file.path(static_dir, "dem_100m.tif"))
+awc  <- raster(file.path(static_dir, "awc_100m.tif"))
 clay <- raster(file.path(static_dir, "clay_100m.tif"))
 sand <- raster(file.path(static_dir, "sand_100m.tif"))
 
 dem <- calc(dem, fun = normalise_min_max)
 awc <- calc(awc, fun = normalise_min_max)
 
-irrigation <- raster(irrigation_path)
-projection(irrigation) <- "+proj=longlat +datum=WGS84 +no_defs"
-irrigation <- projectRaster(irrigation, dem, method = "ngb")
-irrigation <- irrigation * 0.01
+irrigation                  <- raster(irrigation_path)
+projection(irrigation)      <- "+proj=longlat +datum=WGS84 +no_defs"
+irrigation                  <- projectRaster(irrigation, dem, method = "ngb")
+irrigation                  <- irrigation * 0.01
 irrigation[irrigation == 0] <- NA
 
 aoa <- raster(aoa_path)
@@ -68,17 +68,17 @@ aoa <- aggregate(aoa, fact = 10, fun = max, na.rm = TRUE)
 aoa <- resample(aoa, dem, method = "ngb")
 
 within_aoa <- list(
-  dem = extract_masked_values(dem, aoa, 0),
-  awc = extract_masked_values(awc, aoa, 0),
-  clay = extract_masked_values(clay, aoa, 0),
-  sand = extract_masked_values(sand, aoa, 0),
+  dem        = extract_masked_values(dem, aoa, 0),
+  awc        = extract_masked_values(awc, aoa, 0),
+  clay       = extract_masked_values(clay, aoa, 0),
+  sand       = extract_masked_values(sand, aoa, 0),
   irrigation = extract_masked_values(irrigation, aoa, 0)
 )
 outside_aoa <- list(
-  dem = extract_masked_values(dem, aoa, 1),
-  awc = extract_masked_values(awc, aoa, 1),
-  clay = extract_masked_values(clay, aoa, 1),
-  sand = extract_masked_values(sand, aoa, 1),
+  dem        = extract_masked_values(dem, aoa, 1),
+  awc        = extract_masked_values(awc, aoa, 1),
+  clay       = extract_masked_values(clay, aoa, 1),
+  sand       = extract_masked_values(sand, aoa, 1),
   irrigation = extract_masked_values(irrigation, aoa, 1)
 )
 
