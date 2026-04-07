@@ -28,26 +28,26 @@ The current repository layout is:
 
 ```text
 OzNet_AOA/
-|-- 0_ancillary/                  Bundled ancillary inputs used by the demo and reference workflows
-|   |-- OzNet_cleaned_data/       28 cleaned OzNet station CSV files
-|   |-- OzNet_study_sites.csv     Site metadata for the study area
-|   |-- var_dynamic/              Example dynamic predictor rasters
-|   `-- var_static/               Static 100 m predictor rasters
-|-- 1_aoa_demo/                   Runnable AOA demonstration with sample assets
-|   |-- demo.R                    End-to-end demo script
-|   |-- xgb_model_caret_4fold_spatial_cv.rds
-|   `-- xgb_tdi_caret_4fold_spatial_cv.rds
-|-- 2_experimental_scripts/       Reference scripts for the full paper workflow
-|   |-- 1.1-1.2_*                 Covariate preprocessing, projection, and fusion
-|   |-- 2.1-2.2_*                 Model training and spatial prediction
-|   |-- 3.1-3.2_*                 AOA calculation and summary metrics
-|   `-- 4.1-4.3_*                 Independent evaluation and product comparison
-|-- 3_figure_scripts/             One script per paper figure plus shared helpers
-|   |-- figure_utils.R            Shared plotting utilities
-|   `-- <figure_number>_*.R       Figure-specific reproduction scripts
-|-- figures/                      Exported figures used in this README
-|-- LICENSE                       MIT license
-`-- README.md                     Project overview, usage, and citation details
+├── 0_ancillary/                  Bundled ancillary inputs used by the demo and reference workflows
+│   ├── OzNet_cleaned_data/       28 cleaned OzNet station CSV files
+│   ├── OzNet_study_sites.csv     Site metadata for the study area
+│   ├── var_dynamic/              Example dynamic predictor rasters
+│   └── var_static/               Static 100 m predictor rasters
+├── 1_aoa_demo/                   Runnable AOA demonstration with sample assets
+│   ├── demo.R                    End-to-end demo script
+│   ├── xgb_model_caret_4fold_spatial_cv.rds
+│   └── xgb_tdi_caret_4fold_spatial_cv.rds
+├── 2_experimental_scripts/       Reference scripts for the full paper workflow
+│   ├── 1.1-1.2_*                 Covariate preprocessing, projection, and fusion
+│   ├── 2.1-2.2_*                 Model training and spatial prediction
+│   ├── 3.1-3.2_*                 AOA calculation and summary metrics
+│   └── 4.1-4.3_*                 Independent evaluation and product comparison
+├── 3_figure_scripts/             One script per paper figure plus shared helpers
+│   ├── figure_utils.R            Shared plotting utilities
+│   └── <figure_number>_*.R       Figure-specific reproduction scripts
+├── figures/                      Exported figures used in this README
+├── LICENSE                       MIT license
+└── README.md                     Project overview, usage, and citation details
 ```
 
 ## Overview
